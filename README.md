@@ -1,6 +1,7 @@
 # Projecto Biología de Sistemas
-El proyecto tratará e integrará de manera práctica el estudio de un problema biomédico
-Asociación de genes a traves de sistemas (formando pathway o rutas), genes obtenidos a traves de HPO() usando bibliografía previa
+El proyecto tratará de manera práctica el estudio sobre la asociación de genes dado un fenotipo de una enfermedad, obteniendo esta primera información a traves de HPO.
+
+A traves de sistemas (formando pathways o rutas) y relacionandolo todo usando bibliografía científica, hemos redactado un reporte en formato de articulo en el que exponemos toda la información y los resultados
 
 
 ## Participantes: 
