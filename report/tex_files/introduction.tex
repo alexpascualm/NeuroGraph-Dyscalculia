@@ -6,6 +6,12 @@ La Discalculia es una discapacidad de aprendizaje específica que afecta la adqu
 
 Por otra parte, hay estudios \cite{Molko2003,Shalev2001} que muestran que una forma de este fenotipo está asociado genéticamente con anomalías tanto funcionales como estructurales del surco intraparietal derecho, llevando esta región un papel fundamental en el desarrollo de las habilidades aritméticas.
 
+\hfill
+
+\begin{center}
+\includegraphics[width=0.79\textwidth]{figures/Neurons.png}
+\end{center}
+
 \subsection{Búsqueda del fenotipo}
 
 Para la obtención de más información, hemos utilizado HPO (Human Phenotype Ontology). Este es un vocabulario estandarizado de anomalías fenotípicas en enfermedades humanas que utiliza un fenotipado detallado/preciso para poder ser usado a nivel computacional.
@@ -18,7 +24,7 @@ Tras realizar una búsqueda del fenotipo a investigar, \textit{Dyscalculia}, vem
 
 Gracias a las anotaciones en HPO, podemos obtener los genes asociados del fenotipo, y con ello podemos obtener información adicional: Ahora procedemos a la búsqueda de más información a cerca de estos utilizando \href{https://string-db.org}{STRING}, una base de datos biológica y un recurso web de interacciones entre proteínas.
 
-\begin{figure}[]
+\begin{figure}[b]
 	\centering
 	\includegraphics[width=0.50\textwidth]{figures/Gene_Relationship.png}
 	\caption{Interacciones proteína-proteína a raíz de los genes relacionados. }
@@ -27,6 +33,8 @@ Gracias a las anotaciones en HPO, podemos obtener los genes asociados del fenoti
 
 
 \hfill
+
+
 
 \subsection{Búsqueda de interacciones}
 
@@ -44,7 +52,6 @@ A raíz de los artículos recomendados por la base de datos STRING \cite{Walterf
 
 \subsection{Información sobre los genes a estudiar}
 
-\hfill
 
 A continuación se dará una breve información sobre los genes que de mayor grado que hemos encontrado al establecer la red de interconexión del grafo obtenido con String (véase la figura \ref{fig:string1})
 
