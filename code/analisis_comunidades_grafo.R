@@ -1,7 +1,6 @@
 library(igraph)
-library(linkcomm)
 library(STRINGdb)
-library(dplyr)
+library(linkcomm)
 library(clusterProfiler)
 library(org.Hs.eg.db)
 
@@ -53,16 +52,6 @@ plot(cfg, as.undirected(net))
 length(cfg)
 membership(cfg)
 
-
-# Detección de comunidades mediante propagación de etiquetas.
-
-clp <- cluster_label_prop(net)
-dendPlot(clp)
-plot(clp, net)
-
-length(clp)
-membership(clp)
-
 # NetworkPropagation de la red
 
 string_db <- STRINGdb$new( version="11", species=9606, score_threshold=400, input_directory="" )
@@ -93,7 +82,6 @@ plot(DC_lc,
 DC_lc$clustsizes
 
 
-return(genes)
 
 Muestra <- function(Clustnumber){
   
@@ -105,7 +93,7 @@ Muestra <- function(Clustnumber){
   
 }
 
-Comm1 <- Muestra(1)
+Comm1 <- Muestra(42)
 
 
 

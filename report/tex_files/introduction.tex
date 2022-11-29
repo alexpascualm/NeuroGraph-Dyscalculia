@@ -8,43 +8,10 @@ Por otra parte, hay estudios \cite{Molko2003,Shalev2001} que muestran que una fo
 
 \hfill
 
-\begin{center}
-\includegraphics[width=0.79\textwidth]{figures/Neurons.png}
-\end{center}
-
-\subsection{Búsqueda del fenotipo}
-
-Para la obtención de más información, hemos utilizado HPO (Human Phenotype Ontology). Este es un vocabulario estandarizado de anomalías fenotípicas en enfermedades humanas que utiliza un fenotipado detallado/preciso para poder ser usado a nivel computacional.
+Enfermedades como Alzheimer u otras similares tienen que ver con demencias fronto-temporales \cite{Walterfang2014} que están también fuertemente relacionadas con un número significativo de fenotipos relacionados con los genes implicados en 
 
 \hfill
 
-Tras realizar una búsqueda del fenotipo a investigar, \textit{Dyscalculia}, vemos que se encuentra clasificado como \href{https://hpo.jax.org/app/browse/term/HP:0002442}{HP:0002442} con un total de 13 fenotipos de otras enfermedades asociadas y un total de 24 genes asociados a esta en HPO.
-
-\hfill
-
-Gracias a las anotaciones en HPO, podemos obtener los genes asociados del fenotipo, y con ello podemos obtener información adicional: Ahora procedemos a la búsqueda de más información a cerca de estos utilizando \href{https://string-db.org}{STRING}, una base de datos biológica y un recurso web de interacciones entre proteínas.
-
-\begin{figure}[b]
-	\centering
-	\includegraphics[width=0.50\textwidth]{figures/Gene_Relationship.png}
-	\caption{Interacciones proteína-proteína a raíz de los genes relacionados. }
-	\label{fig:string1}
-\end{figure}
-
-
-\hfill
-
-
-
-\subsection{Búsqueda de interacciones}
-
-Tras investigar las distintas interacciones proteína-proteína (véase la figura \ref{fig:string1}) y observar las enfermedades relacionadas con la discalculia en HPO y los distintos articulos científicos citados anteriormente,suponemos la estrecha relación de la discapacidad con un mal funcionamiento del sistema nervioso. En concreto se podría teorizar que existe una relación con las enfermedades de demencia del complejo frontotemporal del cerebro y la esclerosis lateral amiotrófica, pues estas palabras claves aparecen en la mitad de las enfermedades relacionadas con el fenotipo.
-
-\hfill
-
-Enfermedades como Alzheimer u otras que tienen que ver con demencias fronto-temporales \cite{Walterfang2014} que están también fuertemente relacionadas con un número significativo de proteínas en la red de interacciones mencionada anteriormente.
-
-\hfill
 
 A raíz de los artículos recomendados por la base de datos STRING \cite{Walterfang2014,frontotemporal}, suponemos una relación de estos efectos negativos con una mala conexión entre los hemisferios cerebrales, recordemos que el cerebro delega algunas funciones clave como en este caso puede ser la realización de operaciones matemáticas o el reconocimiento numérico y las interconecta a través del Cuerpo Calloso \cite{CorpusCallosum}. Por tanto, un mal funcionamiento de este elemento del sistema puede llevar a una incapacidad de conexión de las funciones de los distintos hemisferios.
 
@@ -74,3 +41,5 @@ A continuación se dará una breve información sobre los genes que de mayor gra
 \hfill
 
 \textbf{HNRNPA2B1\cite{HNRNPA2B1}:}Ribonucleoproteínas nucleares heterogéneas A2/B1; Ribonucleoproteína nuclear heterogénea (hnRNP) que se asocia con pre-ARNm nacientes y los empaqueta en partículas de hnRNP. La disposición de las partículas de hnRNP en el hnRNA naciente no es aleatoria y depende de la secuencia, y sirve para condensar y estabilizar las transcripciones y minimizar los enredos y los nudos. El empaque juega un papel en varios procesos, como la transcripción, el procesamiento de pre-ARNm, la exportación nuclear de ARN, la ubicación subcelular, la traducción de ARNm y la estabilidad de los ARNm maduros. Forma partículas hnRNP con al menos otras 20 hnRNP diferentes.
+
+\newpage
