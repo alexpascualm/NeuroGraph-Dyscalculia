@@ -1,4 +1,9 @@
 library(igraph)
+library(linkcomm)
+library(STRINGdb)
+library(dplyr)
+library(clusterProfiler)
+library(org.Hs.eg.db)
 
 ################# Grafos con iGraph.
 
@@ -49,7 +54,8 @@ length(cfg)
 membership(cfg)
 
 
-#Detección de comunidades mediante propagación de etiquetas.
+# Detección de comunidades mediante propagación de etiquetas.
+
 clp <- cluster_label_prop(net)
 dendPlot(clp)
 plot(clp, net)
@@ -57,4 +63,61 @@ plot(clp, net)
 length(clp)
 membership(clp)
 
+# NetworkPropagation de la red
+
+string_db <- STRINGdb$new( version="11", species=9606, score_threshold=400, input_directory="" )
+string.network <- string_db$get_graph()
+
+hits <- nodes$X9606.ENSP00000442954 #Nos quedamos con los String_ID de nuestro conjunto de genes
+hits.network <- string_db$get_subnetwork(hits) #Creamos una network usando StringDb
+
+first.neigh <- (neighbors(graph = string.network, v = V(hits.network)$name, mode = "all"))$name #Encontrams una serie de nodos vecinos
+hits.network <- string_db$get_subnetwork(unique(c(V(hits.network)$name, first.neigh))) #Unimos la red de nodos originales con la red de vecinos
+
+DFNetwork <- igraph::as_data_frame(hits.network)
+
+
+# Analisis por linkcomm
+
+DC_lc <- getLinkCommunities(DFNetwork,hcmethod = "single") #Comunidades por LinkComm
+
+plot(DC_lc,
+     type = "graph",
+     vsize = 20,
+     vshape = "circle",
+     vlabel = FALSE,
+     layout = layout.fruchterman.reingold)
+
+
+
+DC_lc$clustsizes
+
+
+return(genes)
+
+Muestra <- function(Clustnumber){
+  
+  Nodes <- getNodesIn(DC_lc,clusterids = c(Clustnumber))#Obtenemos los genes de la comunidad seleccionada
+  Nodes<-gsub("9606.","",Nodes)#Procesamos su formato string
+  genes = bitr(Nodes, fromType="ENSEMBLPROT", toType="ENTREZID", OrgDb="org.Hs.eg.db")#Los pasamos a tipo ENTREZID
+  genes$ENTREZID=as.numeric(genes$ENTREZID)#Pasamos estos ENTREZID a numérico
+  return(genes)
+  
+}
+
+Comm1 <- Muestra(1)
+
+
+
+
+# Enriquecimiento funcional
+
+ego <- enrichGO(gene          = Comm1$ENTREZID,
+                OrgDb         = org.Hs.eg.db,
+                ont           = "CC",
+                pAdjustMethod = "BH",
+                pvalueCutoff  = 0.01,
+                qvalueCutoff  = 0.05,
+                readable      = TRUE)
+head(ego)
 
