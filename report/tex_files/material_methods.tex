@@ -8,11 +8,21 @@ En esta parte exponemos los distintos métodos con los que hemos llevado a cabo 
 
 \subsubsection{Análisis por comunidades}
 
-En los análisis de comunidades \cite{Comun_Analisis} se busca la detección y el análisis de grupos. Esto es de enorme aplicabilidad en diferentes dominios: La detección de comunidades es un problema que no tiene un objetivos o una solución global esperada, ya que la naturaleza de las comunidades no se conoce de antemano. El problema se vuelve aún más complicado debido al hecho de que las comunidades emergen en la red en varias formas, como disjuntas, superpuestas y jerárquicas\cite{ComAnalisisStruct}.
+En los análisis de comunidades \cite{Comun_Analisis} se busca la detección y el análisis de grupos. Esto es de enorme aplicabilidad en diferentes dominios: La detección de comunidades es un problema que no tiene un objetivos o una solución global esperada, ya que la naturaleza de las comunidades no se conoce de antemano. El problema se vuelve aún más complicado debido al hecho de que las comunidades emergen en la red en varias formas, como disjuntas, superpuestas y jerárquicas \cite{ComAnalisisStruct}.
 
 \hfill
 
-A lo largo de la historia se han propuesto varias heurísticas\cite{Comun_Analisis_2} para abordar estos desafíos, dependiendo de la aplicación en cuestión. Todas estas heurísticas se han materializado en forma de nuevas métricas, que en la mayoría de los casos se utilizan como funciones de optimización para detectar la estructura de la comunidad, o proporcionan una indicación de la bondad de las comunidades detectadas durante la evaluación.
+A lo largo de la historia se han propuesto varias heurísticas \cite{Comun_Analisis_2} para abordar estos desafíos, dependiendo de la aplicación en cuestión. Todas estas heurísticas se han materializado en forma de nuevas métricas, que en la mayoría de los casos se utilizan como funciones de optimización para detectar la estructura de la comunidad, o proporcionan una indicación de la bondad de las comunidades detectadas durante la evaluación.
+
+\hfill
+
+\subsubsection{Enriquecimiento funcional}
+
+Se han desarrollado muchos métodos para inferir y razonar acerca de las redes de interacción molecular. Uno de ellos es el análisis funcional de genes \cite{enriquecimiento}; en éste se anota y se analiza estadísticamente una de listas de genes utilizando métodos estadísticos para identificar anotaciones funcionales sobre los genes analizados para ver si están significativamente relacionados.
+
+\hfill
+
+Muchas enfermedades humanas están relacionadas \cite{Enriquecimiento2} entre sí por causas comunes o incluso por patologías parecidas. El conocimiento de estas relaciones se ha explotado durante mucho tiempo para tratar enfermedades similares con los mismos tratamientos. Sin embargo, la mayoría de los enfoques tradicionales para descubrir estas relaciones han dependido de medidas subjetivas, como la similitud en los síntomas, sin obtener el conocimiento completo disponible a través del enriquecimiento.
 
 
 \subsection{Materiales}
@@ -39,15 +49,15 @@ Las comunidades de enlaces revelan la estructura anidada y superpuesta en las re
 
 \subsubsection{ClusterProfiler}
 
-clusterProfiler\cite{ClusterProfiler_paper}implementa métodos para analizar y visualizar perfiles funcionales de coordenadas genómicas, genes y grupos de genes.
+clusterProfiler \cite{ClusterProfiler_paper}implementa métodos para analizar y visualizar perfiles funcionales de coordenadas genómicas, genes y grupos de genes.
 
 \subsubsection{org.Hs.eg.db} 
 
 Anotación de todo el genoma para humanos, basada principalmente en el mapeo utilizando identificadores de genes Entrez
 
-\subsection{Gene Ontology (GO)}
+\subsubsection{Gene Ontology (GO)}
 
-La base de conocimientos Gene Ontology (GO)\cite{GO_paper} es la fuente de información más grande del mundo sobre las funciones de los genes. Este conocimiento es tanto legible por humanos como por máquinas, y es la base para el análisis funcional de experimentos genéticos y de biología molecular a gran escala en la investigación biomédica.
+La base de conocimientos Gene Ontology (GO) \cite{GO_paper} es la fuente de información más grande del mundo sobre las funciones de los genes. Este conocimiento es tanto legible por humanos como por máquinas, y es la base para el análisis funcional de experimentos genéticos y de biología molecular a gran escala en la investigación biomédica.
 
 
 
