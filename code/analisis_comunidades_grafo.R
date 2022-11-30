@@ -93,7 +93,7 @@ Muestra <- function(Clustnumber){
   
 }
 
-Comm1 <- Muestra(42)
+Comm1 <- Muestra(43)
 
 
 
