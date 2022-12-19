@@ -14,7 +14,7 @@ Descargamos un .csv para cargar el listado de genes con sus links en String
 
 \hfill
 
-Gracias a las anotaciones en HPO obtenidas del .csv mencionado anteriormente, podemos obtener los genes asociados del fenotipo, y con ello procedemos a la búsqueda de más información acerca de estos utilizando \href{https://string-db.org}{STRING}, una base de datos biológica y un recurso web de interacciones entre proteínas.
+Gracias a las anotaciones en HPO obtenidas del .csv mencionado anteriormente, podemos obtener los genes asociados del fenotipo, y con ello procedemos a la búsqueda de más información acerca de estos utilizando \href{https://string-db.org}{STRING}, una base de datos biológica y un recurso web de interacciones entre proteínas. El resultado lo podemos ver en la \ref{fig:string1}
 
 \begin{figure}[h]
 	\centering
@@ -49,13 +49,13 @@ Se realizan a continuación los correspondientes pasos para clusterizar nuestro 
 
 \subsubsection{LinkComm}
 
-Tras una serie de pruebas con distintas funciones de igraph para hacer comunidades, se ha decidido usar la anteriormente citada LinkComm, que nos deja esta imagen como muestra de su trabajo sobre nuestra red de genes: 
+Tras una serie de pruebas con distintas funciones de igraph para hacer comunidades, se ha decidido usar la anteriormente citada LinkComm, que nos deja la \ref{fig:LinkComm1} como muestra de su trabajo sobre nuestra red de genes: 
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.90\textwidth]{figures/Grapichs_LinkComm.png}
 	\caption{Dendograma del clustering realizado-Relación Altura con Densidad de particion. }
-	\label{fig:string1}
+	\label{fig:LinkComm1}
 \end{figure}
 
 \hfill
@@ -68,11 +68,34 @@ A continuación se realizara un enriquecimiento funcional con GO (Gene Ontology)
 
 Se muestra ahora las principales funciones obtenidas del enriquecimiento:
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.90\textwidth]{figures/cabezera_enrich_go.png}
-	\caption{Cabezera de la tabla resultante del enriquecimiento con GO. }
-	\label{fig:string1}
-\end{figure}
+% LaTeXTable
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rllllrrlr}
+  \hline
+ & ID & Description & GeneRatio & BgRatio & pvalue & p.adjust & geneID & Count \\ 
+  \hline
+1 & GO:0035578 & azurophil granule lumen & 2/2 & 91/19869 & 0.00 & 0.00 & MPO/AGA &   2 \\ 
+  2 & GO:0005766 & primary lysosome & 2/2 & 155/19869 & 0.00 & 0.00 & MPO/AGA &   2 \\ 
+  3 & GO:0042582 & azurophil granule & 2/2 & 155/19869 & 0.00 & 0.00 & MPO/AGA &   2 \\ 
+  4 & GO:0005775 & vacuolar lumen & 2/2 & 176/19869 & 0.00 & 0.00 & MPO/AGA &   2 \\ 
+  5 & GO:0034774 & secretory granule lumen & 2/2 & 322/19869 & 0.00 & 0.00 & MPO/AGA &   2 \\ 
+  6 & GO:0060205 & cytoplasmic vesicle lumen & 2/2 & 325/19869 & 0.00 & 0.00 & MPO/AGA &   2 \\ 
+  7 & GO:0031983 & vesicle lumen & 2/2 & 327/19869 & 0.00 & 0.00 & MPO/AGA &   2 \\ 
+  8 & GO:0071682 & endocytic vesicle lumen & 1/2 & 23/19869 & 0.00 & 0.00 & MPO &   1 \\ 
+  9 & GO:0045335 & phagocytic vesicle & 1/2 & 139/19869 & 0.01 & 0.02 & MPO &   1 \\ 
+  10 & GO:0030139 & endocytic vesicle & 1/2 & 343/19869 & 0.03 & 0.03 & MPO &   1 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+
+% \begin{figure}[h]
+% 	\centering
+% 	\includegraphics[width=0.90\textwidth]{figures/cabezera_enrich_go.png}
+% 	\caption{Cabezera de la tabla resultante del enriquecimiento con GO. }
+% 	\label{fig:string1}
+% \end{figure}
 
 \hfill
