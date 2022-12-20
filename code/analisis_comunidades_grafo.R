@@ -76,7 +76,9 @@ DFNetwork <- igraph::as_data_frame(hits.network)
 
 
 ## Analisis por linkcomm ##
+pdf(file="../results/dendograma_por_linkcomm.pdf")
 DC_lc <- getLinkCommunities(DFNetwork,hcmethod = "single") #Comunidades por LinkComm
+dev.off()
 
 pdf(file="../results/comunidades_por_linkcomm.pdf")
 plot(DC_lc,
@@ -89,7 +91,10 @@ dev.off()
 
 
 max(DC_lc$numclusters)
+
+pdf(file="../results/barplot.pdf")
 barplot(DC_lc$clustsize)
+dev.off()
 
 ###Analisis de nuestra comunidad de genes originales###
 
@@ -194,8 +199,16 @@ df_enrich = as.data.frame(ego@result)
 df_enrich$qvalue = NULL
 rownames(df_enrich) = NULL
 
-print(xtable(df_enrich, type = "latex"), file = "../results/Tabla_Encriquecimiento_Funcional_Comm64.tex") # Se guardara en el file especificado
+df_enrich2 <- df_enrich
 
+df_enrich$BgRatio = NULL
+df_enrich$pvalue = NULL
+df_enrich$p.adjust = NULL
+df_enrich$geneID = NULL
+df_enrich$Count = NULL
 
+df_enrich2$Description = NULL
+df_enrich2$GeneRatio = NULL
 
-
+print(xtable(df_enrich, type = "latex"), file = "../results/Tabla_Encriquecimiento_Funcional_parte1.tex") # Se guardara en el file especificado
+print(xtable(df_enrich2, type = "latex"), file = "../results/Tabla_Encriquecimiento_Funcionalparte2.tex") # Se guardara en el file especificado
