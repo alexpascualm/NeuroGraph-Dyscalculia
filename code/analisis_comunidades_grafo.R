@@ -67,6 +67,9 @@ hits.network <- string_db$get_subnetwork(unique(c(V(hits.network)$name, first.ne
 DFNetwork <- igraph::as_data_frame(hits.network)
 
 
+
+
+
 ## Analisis por linkcomm ##
 DC_lc <- getLinkCommunities(DFNetwork,hcmethod = "single") #Comunidades por LinkComm
 
@@ -78,10 +81,15 @@ plot(DC_lc,
      layout = layout.fruchterman.reingold)
 
 
+max(DC_lc$numclusters)
+barplot(DC_lc$clustsize)
 
-DC_lc$clustsizes
+###Analisis de nuestra comunidad de genes originales###
 
 
+Nodes<-gsub("9606.","",hits) # Procesamos su formato string
+genes = bitr(Nodes, fromType="ENSEMBLPROT", toType="ENTREZID", OrgDb="org.Hs.eg.db") # Los pasamos a tipo ENTREZID
+genes$ENTREZID=as.numeric(genes$ENTREZID) # Pasamos estos ENTREZID a numérico
 
 Muestra <- function(Clustnumber){
   
@@ -93,14 +101,15 @@ Muestra <- function(Clustnumber){
   
 }
 
-Comm1 <- Muestra(42)
+Comm1 <- Muestra(1)
 
 
 
 
-# Enriquecimiento funcional
+# Enriquecimiento funcional, se ira variando el contenido del atributo gene en función del conjunto que se quiera estudiar
 
-ego <- enrichGO(gene          = Comm1$ENTREZID,
+
+ego <- enrichGO(gene          = genes$ENTREZID,
                 OrgDb         = org.Hs.eg.db,
                 ont           = "CC",
                 pAdjustMethod = "BH",
@@ -109,9 +118,11 @@ ego <- enrichGO(gene          = Comm1$ENTREZID,
                 readable      = TRUE)
 head(ego)
 
+# A continuación se procede a guardar toda la tabla en un formato legible por latex
+
 df_enrich = as.data.frame(ego@result)
 
 df_enrich$qvalue = NULL
 rownames(df_enrich) = NULL
 
-print(xtable(df_enrich, type = "latex"), file = "Tabla_Encriquecimiento_Funcional.tex")
+print(xtable(df_enrich, type = "latex"), file = "Tabla_Encriquecimiento_Funcional.tex") # Se guardara en el file especificado

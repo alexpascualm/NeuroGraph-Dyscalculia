@@ -1,3 +1,5 @@
+
+
 \section{Resultados}
 
 Se explicaran ahora los resultados que hemos obtenido usando todos los recursos explicados anteriormente:
@@ -14,7 +16,7 @@ Descargamos un .csv para cargar el listado de genes con sus links en String
 
 \hfill
 
-Gracias a las anotaciones en HPO obtenidas del .csv mencionado anteriormente, podemos obtener los genes asociados del fenotipo, y con ello procedemos a la búsqueda de más información acerca de estos utilizando \href{https://string-db.org}{STRING}, una base de datos biológica y un recurso web de interacciones entre proteínas. El resultado lo podemos ver en la \ref{fig:string1}
+Gracias a las anotaciones en HPO obtenidas del .csv mencionado anteriormente, podemos obtener los genes asociados del fenotipo, y con ello procedemos a la búsqueda de más información acerca de estos utilizando \href{https://string-db.org}{STRING}, una base de datos biológica y un recurso web de interacciones entre proteínas. El resultado lo podemos ver en la figura 1
 
 \begin{figure}[h]
 	\centering
@@ -37,6 +39,10 @@ Se usara esta network de genes humanos, para buscar genes vecinos de los 24 que 
 
 \hfill
 
+Gracias a este método el total de genes de estudio ha ascendido a 214, con esto podemos pasar al estudio de sus relaciones y funciones con una carga de trabajo mas adecuada.
+
+Finalmente se usara String para la documentación que estudiaremos antes de sacar conclusiones, puesta herramienta nos sugiere papers científicos de gran relación con la red de genes que se le de como entrada
+
 \subsection{igraph}
 
 Usaremos igraph para convertir nuestro objeto network (genes originalmente relacionados con el  fenotipo mas los genes vecinos de la red general anteriormente citada) en un dataframe que sea procesable por las funciones de clustering para la división en comunidades
@@ -49,53 +55,56 @@ Se realizan a continuación los correspondientes pasos para clusterizar nuestro 
 
 \subsubsection{LinkComm}
 
-Tras una serie de pruebas con distintas funciones de igraph para hacer comunidades, se ha decidido usar la anteriormente citada LinkComm, que nos deja la \ref{fig:LinkComm1} como muestra de su trabajo sobre nuestra red de genes: 
+Tras una serie de pruebas con distintas funciones de igraph para hacer comunidades, se ha decidido usar la anteriormente citada LinkComm (con hcmethod="single", ya que cambiando este parametro a otros modos como "ward, obteniamos comunidades mucho menos relevantes), que nos deja la figura 2 como muestra de su trabajo sobre nuestra red de genes, este dendograma y esta gráfica que relaciona la altura con la densidad de partición :
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.90\textwidth]{figures/Grapichs_LinkComm.png}
+	\includegraphics[width=0.60\textwidth]{figures/Grapichs_LinkComm.png}
 	\caption{Dendograma del clustering realizado-Relación Altura con Densidad de particion. }
 	\label{fig:LinkComm1}
 \end{figure}
 
-\hfill
-
-\subsubsection{ClusterProfiler}
-
-A continuación se realizara un enriquecimiento funcional con GO (Gene Ontology) para observar las funciones implicadas en la formación de las distintas componentes celulares de las comunidades con un número de genes similar a 20, que supone aproximadamente un 10/100 del total de nuestra red propagada.
+\newpage
 
 \hfill
 
-Se muestra ahora las principales funciones obtenidas del enriquecimiento:
+Se han obtenido un total de 71 comunidades, cada una con una cantidad de los 214 nodos originales diferente. Observamos en esta con un gráfico de barras la cantidad de nodos que tienen esas comunidades:
 
-% LaTeXTable
-
-\begin{table}[ht]
-\centering
-\begin{tabular}{rllllrrlr}
-  \hline
- & ID & Description & GeneRatio & BgRatio & pvalue & p.adjust & geneID & Count \\ 
-  \hline
-1 & GO:0035578 & azurophil granule lumen & 2/2 & 91/19869 & 0.00 & 0.00 & MPO/AGA &   2 \\ 
-  2 & GO:0005766 & primary lysosome & 2/2 & 155/19869 & 0.00 & 0.00 & MPO/AGA &   2 \\ 
-  3 & GO:0042582 & azurophil granule & 2/2 & 155/19869 & 0.00 & 0.00 & MPO/AGA &   2 \\ 
-  4 & GO:0005775 & vacuolar lumen & 2/2 & 176/19869 & 0.00 & 0.00 & MPO/AGA &   2 \\ 
-  5 & GO:0034774 & secretory granule lumen & 2/2 & 322/19869 & 0.00 & 0.00 & MPO/AGA &   2 \\ 
-  6 & GO:0060205 & cytoplasmic vesicle lumen & 2/2 & 325/19869 & 0.00 & 0.00 & MPO/AGA &   2 \\ 
-  7 & GO:0031983 & vesicle lumen & 2/2 & 327/19869 & 0.00 & 0.00 & MPO/AGA &   2 \\ 
-  8 & GO:0071682 & endocytic vesicle lumen & 1/2 & 23/19869 & 0.00 & 0.00 & MPO &   1 \\ 
-  9 & GO:0045335 & phagocytic vesicle & 1/2 & 139/19869 & 0.01 & 0.02 & MPO &   1 \\ 
-  10 & GO:0030139 & endocytic vesicle & 1/2 & 343/19869 & 0.03 & 0.03 & MPO &   1 \\ 
-   \hline
-\end{tabular}
-\end{table}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.70\textwidth]{figures/barplot_communities.PNG}
+	\caption{Cantidad de genes de cada comunidad obtenida.}
+	\label{fig:LinkComm2}
+\end{figure}
 
 
-% \begin{figure}[h]
-% 	\centering
-% 	\includegraphics[width=0.90\textwidth]{figures/cabezera_enrich_go.png}
-% 	\caption{Cabezera de la tabla resultante del enriquecimiento con GO. }
-% 	\label{fig:string1}
-% \end{figure}
+Además podemos observar esta imagen en la que por colores se nos muestra la pertenencia de cada nodo de la red a la una comunidad u otra:
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.70\textwidth]{figures/Grafo_Linkcomm.PNG}
+	\caption{Pertenencia a las distintas comunidades de nuestra red de genes. }
+	\label{fig:LinkComm3}
+\end{figure}
+
+\subsection{ClusterProfiler}
+
+A continuación se realizara un enriquecimiento funcional con GO (Gene Ontology) para observar las funciones implicadas en la formación de las distintas componentes celulares de las principales comunidades que hemos obtenido con LinkComm.
+
+\hfill
+
+\textbf{Enrich Comm 1}
+
+Con un total de 86 genes sobre los 214 de los que disponíamos, la comunidad con el id número 1 responde al enriquecimiento funcional de la siguiente manera:
+
+
+
+
+\hfill
+
+\textbf{Enrich Comm x}
+
+
+
 
 \hfill
