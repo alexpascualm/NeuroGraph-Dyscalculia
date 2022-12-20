@@ -134,7 +134,7 @@ Muestra <- function(Clustnumber){
 
 # Enriquecimiento funcional comunidad 
 
-Comm70 <- Muestra(70) # Comunidad con 48 genes
+Comm70 <- Muestra(33) # Comunidad con 48 genes
 
 
 ego <- enrichGO(gene          = Comm70$ENTREZID,
@@ -153,53 +153,8 @@ df_enrich = as.data.frame(ego@result)
 df_enrich$qvalue = NULL
 rownames(df_enrich) = NULL
 
-print(xtable(df_enrich, type = "latex"), file = "../results/Tabla_Encriquecimiento_Funcional_Comm70.tex") # Se guardara en el file especificado
-
-# Enriquecimiento funcional comunidad 33
-
-Comm33 <- Muestra(33) #Comunidad con 30 genes
-
-
-ego <- enrichGO(gene          = Comm33$ENTREZID,
-                OrgDb         = org.Hs.eg.db,
-                ont           = "CC",
-                pAdjustMethod = "BH",
-                pvalueCutoff  = 0.01,
-                qvalueCutoff  = 0.05,
-                readable      = TRUE)
-head(ego)
-
-# A continuación se procede a guardar toda la tabla en un formato legible por latex
-
-df_enrich = as.data.frame(ego@result)
-
-df_enrich$qvalue = NULL
-rownames(df_enrich) = NULL
-
-print(xtable(df_enrich, type = "latex"), file = "../results/Tabla_Encriquecimiento_Funcional_Comm33.tex") # Se guardara en el file especificado
-
-# Enriquecimiento funcional comunidad 64
-
-Comm64 <- Muestra(64) #Comunidad con 68 genes
-
-
-ego <- enrichGO(gene          = Comm64$ENTREZID,
-                OrgDb         = org.Hs.eg.db,
-                ont           = "CC",
-                pAdjustMethod = "BH",
-                pvalueCutoff  = 0.01,
-                qvalueCutoff  = 0.05,
-                readable      = TRUE)
-head(ego)
-
-# A continuación se procede a guardar toda la tabla en un formato legible por latex
-
-df_enrich = as.data.frame(ego@result)
-
-df_enrich$qvalue = NULL
-rownames(df_enrich) = NULL
-
 df_enrich2 <- df_enrich
+df_enrich3 <- df_enrich
 
 df_enrich$BgRatio = NULL
 df_enrich$pvalue = NULL
@@ -209,6 +164,15 @@ df_enrich$Count = NULL
 
 df_enrich2$Description = NULL
 df_enrich2$GeneRatio = NULL
+df_enrich2$geneID = NULL
+
+df_enrich3$Description = NULL
+df_enrich3$GeneRatio = NULL
+df_enrich3$BgRatio = NULL
+df_enrich3$pvalue = NULL
+df_enrich3$p.adjust = NULL
+df_enrich3$Count = NULL
 
 print(xtable(df_enrich, type = "latex"), file = "../results/Tabla_Encriquecimiento_Funcional_parte1.tex") # Se guardara en el file especificado
 print(xtable(df_enrich2, type = "latex"), file = "../results/Tabla_Encriquecimiento_Funcionalparte2.tex") # Se guardara en el file especificado
+print(xtable(df_enrich3, type = "latex"), file = "../results/Tabla_Encriquecimiento_Funcionalparte3.tex") # Se guardara en el file especificado
