@@ -28,15 +28,18 @@ lo <- layout_with_kk(net) # Creamos la disposición (layout) de los nodos
 lo <- norm_coords(lo, ymin=-1, ymax=1, xmin=-1, xmax=1)
 
 ## Representa graficamente
+pdf(file="../results/grafos_de_genes.pdf")
 plot(net, edge.arrow.size=0.2, edge.curved=0.1, vertex.size=15, vertex.color="white", vertex.frame.color="black", vertex.label.color="black",vertex.label.cex=0.4, layout=lo)
-
+dev.off()
 
 ## Detección de comunidades por clustering ##
 community <- cluster_edge_betweenness(net)
 
 dendPlot(community) 
 
+pdf(file="../results/comunidades_por_clustering.pdf")
 plot(community, net, edge.arrow.size=0.05, edge.curved=0.1, vertex.size=13, vertex.color="white", vertex.frame.color="black", vertex.label.color="black",vertex.label.cex=0.4, layout=lo)
+dev.off()
 
 length(community)
 membership(community)
@@ -48,7 +51,9 @@ cfg <- cluster_fast_greedy(as.undirected(net))
 
 dendPlot(cfg)
 
+pdf(file="../results/comunidades_por_voraz.pdf")
 plot(cfg, as.undirected(net), vertex.size=13, vertex.color="white", vertex.frame.color="black", vertex.label.color="black",vertex.label.cex=0.4, layout=lo)
+dev.off()
 
 length(cfg)
 membership(cfg)
@@ -73,12 +78,14 @@ DFNetwork <- igraph::as_data_frame(hits.network)
 ## Analisis por linkcomm ##
 DC_lc <- getLinkCommunities(DFNetwork,hcmethod = "single") #Comunidades por LinkComm
 
+pdf(file="../results/comunidades_por_linkcomm.pdf")
 plot(DC_lc,
      type = "graph",
      vsize = 20,
      vshape = "circle",
      vlabel = FALSE,
      layout = layout.fruchterman.reingold)
+dev.off()
 
 
 max(DC_lc$numclusters)
@@ -125,4 +132,4 @@ df_enrich = as.data.frame(ego@result)
 df_enrich$qvalue = NULL
 rownames(df_enrich) = NULL
 
-print(xtable(df_enrich, type = "latex"), file = "Tabla_Encriquecimiento_Funcional.tex") # Se guardara en el file especificado
+print(xtable(df_enrich, type = "latex"), file = "../results/Tabla_Encriquecimiento_Funcional.tex") # Se guardara en el file especificado
