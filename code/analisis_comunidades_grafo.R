@@ -98,6 +98,24 @@ Nodes<-gsub("9606.","",hits) # Procesamos su formato string
 genes = bitr(Nodes, fromType="ENSEMBLPROT", toType="ENTREZID", OrgDb="org.Hs.eg.db") # Los pasamos a tipo ENTREZID
 genes$ENTREZID=as.numeric(genes$ENTREZID) # Pasamos estos ENTREZID a numérico
 
+ego <- enrichGO(gene          = genes$ENTREZID,
+                OrgDb         = org.Hs.eg.db,
+                ont           = "CC",
+                pAdjustMethod = "BH",
+                pvalueCutoff  = 0.01,
+                qvalueCutoff  = 0.05,
+                readable      = TRUE)
+head(ego)
+
+df_enrich = as.data.frame(ego@result)
+
+df_enrich$qvalue = NULL
+rownames(df_enrich) = NULL
+
+print(xtable(df_enrich, type = "latex"), file = "../results/Tabla_Encriquecimiento_Funcional_Genes_Inciales.tex") # Se guardara en el file especificado
+
+
+## Funcion para traducir a ENTREZID los genes de una comunidad dada
 Muestra <- function(Clustnumber){
   
   Nodes <- getNodesIn(DC_lc,clusterids = c(Clustnumber)) # Obtenemos los genes de la comunidad seleccionada
@@ -108,15 +126,13 @@ Muestra <- function(Clustnumber){
   
 }
 
-Comm1 <- Muestra(1)
+
+# Enriquecimiento funcional comunidad 
+
+Comm70 <- Muestra(70) # Comunidad con 48 genes
 
 
-
-
-# Enriquecimiento funcional, se ira variando el contenido del atributo gene en función del conjunto que se quiera estudiar
-
-
-ego <- enrichGO(gene          = genes$ENTREZID,
+ego <- enrichGO(gene          = Comm70$ENTREZID,
                 OrgDb         = org.Hs.eg.db,
                 ont           = "CC",
                 pAdjustMethod = "BH",
@@ -132,4 +148,54 @@ df_enrich = as.data.frame(ego@result)
 df_enrich$qvalue = NULL
 rownames(df_enrich) = NULL
 
-print(xtable(df_enrich, type = "latex"), file = "../results/Tabla_Encriquecimiento_Funcional.tex") # Se guardara en el file especificado
+print(xtable(df_enrich, type = "latex"), file = "../results/Tabla_Encriquecimiento_Funcional_Comm70.tex") # Se guardara en el file especificado
+
+# Enriquecimiento funcional comunidad 33
+
+Comm33 <- Muestra(33) #Comunidad con 30 genes
+
+
+ego <- enrichGO(gene          = Comm33$ENTREZID,
+                OrgDb         = org.Hs.eg.db,
+                ont           = "CC",
+                pAdjustMethod = "BH",
+                pvalueCutoff  = 0.01,
+                qvalueCutoff  = 0.05,
+                readable      = TRUE)
+head(ego)
+
+# A continuación se procede a guardar toda la tabla en un formato legible por latex
+
+df_enrich = as.data.frame(ego@result)
+
+df_enrich$qvalue = NULL
+rownames(df_enrich) = NULL
+
+print(xtable(df_enrich, type = "latex"), file = "../results/Tabla_Encriquecimiento_Funcional_Comm33.tex") # Se guardara en el file especificado
+
+# Enriquecimiento funcional comunidad 64
+
+Comm64 <- Muestra(64) #Comunidad con 68 genes
+
+
+ego <- enrichGO(gene          = Comm64$ENTREZID,
+                OrgDb         = org.Hs.eg.db,
+                ont           = "CC",
+                pAdjustMethod = "BH",
+                pvalueCutoff  = 0.01,
+                qvalueCutoff  = 0.05,
+                readable      = TRUE)
+head(ego)
+
+# A continuación se procede a guardar toda la tabla en un formato legible por latex
+
+df_enrich = as.data.frame(ego@result)
+
+df_enrich$qvalue = NULL
+rownames(df_enrich) = NULL
+
+print(xtable(df_enrich, type = "latex"), file = "../results/Tabla_Encriquecimiento_Funcional_Comm64.tex") # Se guardara en el file especificado
+
+
+
+
