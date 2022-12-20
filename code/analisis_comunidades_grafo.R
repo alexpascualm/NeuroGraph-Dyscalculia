@@ -134,10 +134,10 @@ Muestra <- function(Clustnumber){
 
 # Enriquecimiento funcional comunidad 
 
-Comm70 <- Muestra(33) # Comunidad con 48 genes
+Comm <- Muestra(33) # Id de la comunidad del cluster que se quiera estudiar
 
 
-ego <- enrichGO(gene          = Comm70$ENTREZID,
+ego <- enrichGO(gene          = Comm$ENTREZID,
                 OrgDb         = org.Hs.eg.db,
                 ont           = "CC",
                 pAdjustMethod = "BH",
