@@ -1,5 +1,4 @@
-#node1	node2	node1_string_id	node2_string_id	neighborhood_on_chromosome	gene_fusion	phylogenetic_cooccurrence	homology	coexpression	experimentally_determined_interaction	database_annotated	automated_textmining	combined_score
-C9orf72	GRN	9606.ENSP00000482753	9606.ENSP00000053867	0	0	0	0	0	0	0	0.865	0.865
+node1	node2	node1_string_id	node2_string_id	neighborhood_on_chromosome	gene_fusion	phylogenetic_cooccurrence	homology	coexpression	experimentally_determined_interaction	database_annotated	automated_textmining	combined_score
 C9orf72	TARDBP	9606.ENSP00000482753	9606.ENSP00000240185	0	0	0	0	0.062	0	0	0.906	0.908
 C9orf72	FUS	9606.ENSP00000482753	9606.ENSP00000254108	0	0	0	0	0	0.270	0	0.926	0.944
 C9orf72	CHMP2B	9606.ENSP00000482753	9606.ENSP00000263780	0	0	0	0	0	0	0	0.858	0.858
