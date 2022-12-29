@@ -1,5 +1,3 @@
-mkdir -p ./deps_R
-
-#export TMPDIR=./deps_R/
+sudo apt install libfontconfig1-dev
 
 Rscript instalar_dependencias.R

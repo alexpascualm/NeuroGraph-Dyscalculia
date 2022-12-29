@@ -1,20 +1,28 @@
-#.libPaths(c(.libPaths(), temp <- tempdir()))
-path_discal <- "~/deps_R"
+dir.create(paste0(Sys.getenv("R_LIBS_USER"),"/discalculia"), recursive = TRUE)  # create personal library
+.libPaths(paste0(Sys.getenv("R_LIBS_USER"),"/discalculia"))  # add to the path
+
+path_discalculia <- paste0(Sys.getenv("R_LIBS_USER"),"/discalculia")
 
 if (!require("BiocManager", quietly = TRUE))
-  install.packages("BiocManager", lib = path_discal)
+  install.packages("BiocManager", lib = path_discalculia)
 
-install.packages("igraph")
-install.packages("xtable")
 
-BiocManager::install("STRINGdb", lib = path_discal)
-BiocManager::install("linkcomm", lib = path_discal)
-BiocManager::install("clusterProfiler", lib = path_discal)
-BiocManager::install("org.Hs.eg.db", lib = path_discal)
+if (!require("igraph", quietly = TRUE))
+  install.packages("igraph", lib = path_discalculia)
 
-library(igraph, lib.loc = path_discal)
-library(STRINGdb, lib.loc = path_discal)
-library(linkcomm, lib.loc = path_discal)
-library(clusterProfiler, lib.loc = path_discal)
-library(org.Hs.eg.db, lib.loc = path_discal)
-library(xtable, lib.loc = path_discal)
+if (!require("xtable", quietly = TRUE))
+  install.packages("xtable", lib = path_discalculia)
+
+
+if (!require("STRINGdb", quietly = TRUE))
+  BiocManager::install("STRINGdb", lib = path_discalculia)
+
+if (!require("linkcomm", quietly = TRUE))
+  BiocManager::install("linkcomm", lib = path_discalculia)
+
+if (!require("org.Hs.eg.db", quietly = TRUE))
+  BiocManager::install("org.Hs.eg.db", lib = path_discalculia)
+
+
+if (!require("clusterProfiler", quietly = TRUE))
+  BiocManager::install("clusterProfiler", lib = path_discalculia)

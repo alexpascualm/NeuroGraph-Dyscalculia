@@ -1,3 +1,5 @@
+.libPaths(paste0(Sys.getenv("R_LIBS_USER"),"/discalculia"))  # add to the path
+
 suppressMessages(library(igraph))
 suppressMessages(library(STRINGdb))
 suppressMessages(library(linkcomm))
