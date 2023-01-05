@@ -33,10 +33,12 @@ hits.network <- string_db$get_subnetwork(unique(c(V(hits.network)$name, first.ne
 DFNetwork <- igraph::as_data_frame(hits.network)
 
 ## Crea un nuevo grafo a partir de los nodos y de las aristas proporcionadas. La red será dirigida.
+
 g <- graph_from_data_frame(d=DFNetwork, directed=T)
 
 
-## Functiones ##
+## Funciones ##
+
 suppressMessages(library(ggplot2))
 
 sequential.attacks.targeted <- function(grafo){
@@ -86,12 +88,16 @@ sequential.attacks.random <- function(grafo){
   return(S.vs.q)
 }
 
+#Representación de ataque dirigido
+
 ataques_dirigidos <- sequential.attacks.targeted(g)
 ataques_dirigidos
 
 qplot(data=ataques_dirigidos, x=ataques_dirigidos$q, y=ataques_dirigidos$S, xlab = "Iteracion de eliminacion",
       ylab = "Nodos que siguen conectados a la red frente a los totales", xlim = c(0, 1))
 
+
+#Representación de ataque aleatorio
 
 ataques_aleatorios <- sequential.attacks.random(g)
 ataques_aleatorios

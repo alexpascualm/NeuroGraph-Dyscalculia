@@ -30,16 +30,18 @@ lo <- layout_with_kk(net) # Creamos la disposición (layout) de los nodos
 lo <- norm_coords(lo, ymin=-1, ymax=1, xmin=-1, xmax=1)
 
 ## Representa graficamente ##
+
 pdf(file="../results/Red_de_genes_Original.pdf")
 plot(net, edge.arrow.size=0.2, edge.curved=0.1, vertex.size=15, vertex.color="white", vertex.frame.color="black", vertex.label.color="black",vertex.label.cex=0.4, layout=lo)
 dev.off()
 
-## Detección de comunidades por clustering ##
+## Detección de comunidades por proximidad ##
+
 community <- cluster_edge_betweenness(net)
 
 dendPlot(community) 
 
-pdf(file="../results/comunidades_por_clustering.pdf")
+pdf(file="../results/comunidades_por_proximidad.pdf")
 plot(community, net, edge.arrow.size=0.05, edge.curved=0.1, vertex.size=13, vertex.color="white", vertex.frame.color="black", vertex.label.color="black",vertex.label.cex=0.4, layout=lo)
 dev.off()
 
@@ -62,13 +64,14 @@ membership(cfg)
 
 
 #### NetworkPropagation de la red ####
+
 string_db <- STRINGdb$new( version="11", species=9606, score_threshold=400, input_directory="" )
-string.network <- string_db$get_graph()
+string.network <- string_db$get_graph() # Obtenemos una red de nodos de string del organismo Homo Sapiens
 
 hits <- nodes$identifier # Nos quedamos con los identificadores de String de nuestro conjunto de genes
-hits.network <- string_db$get_subnetwork(hits)                   # Creamos una network usando StringDb
+hits.network <- string_db$get_subnetwork(hits)  # Creamos una network de nuestros nodos usando StringDb
 
-first.neigh <- (neighbors(graph = string.network, v = V(hits.network)$name, mode = "all"))$name         # Encontramos una serie de nodos vecinos
+first.neigh <- (neighbors(graph = string.network, v = V(hits.network)$name, mode = "all"))$name   # Encontramos una serie de nodos vecinos
 hits.network <- string_db$get_subnetwork(unique(c(V(hits.network)$name, first.neigh))) # Unimos la red de nodos originales con la red de vecinos
 
 DFNetwork <- igraph::as_data_frame(hits.network)
@@ -78,6 +81,7 @@ DFNetwork <- igraph::as_data_frame(hits.network)
 
 
 ## Analisis por linkcomm ##
+
 pdf(file="../results/dendograma_por_linkcomm.pdf")
 DC_lc <- getLinkCommunities(DFNetwork,hcmethod = "single") # Comunidades por LinkComm
 dev.off()
@@ -113,7 +117,7 @@ ID_to_EntrezID <- function(Clustnumber){
 ### Analisis de nuestra comunidad de genes originales ###
 
 originales <- gsub("9606.","",nodes$identifier)
-originales <- bitr(originales, fromType="ENSEMBLPROT", toType="ENTREZID", OrgDb="org.Hs.eg.db") # Los pasamos a tipo ENTREZID
+ororiginales <- bitr(originales, fromType="ENSEMBLPROT", toType="ENTREZID", OrgDb="org.Hs.eg.db") # Los pasamos a tipo ENTREZID
 originales <- as.numeric(originales$ENTREZID)
 ego <- enrichGO(gene          = originales,
                 OrgDb         = org.Hs.eg.db,
