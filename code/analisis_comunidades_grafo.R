@@ -117,7 +117,7 @@ ID_to_EntrezID <- function(Clustnumber){
 ### Analisis de nuestra comunidad de genes originales ###
 
 originales <- gsub("9606.","",nodes$identifier)
-ororiginales <- bitr(originales, fromType="ENSEMBLPROT", toType="ENTREZID", OrgDb="org.Hs.eg.db") # Los pasamos a tipo ENTREZID
+originales <- bitr(originales, fromType="ENSEMBLPROT", toType="ENTREZID", OrgDb="org.Hs.eg.db") # Los pasamos a tipo ENTREZID
 originales <- as.numeric(originales$ENTREZID)
 ego <- enrichGO(gene          = originales,
                 OrgDb         = org.Hs.eg.db,
@@ -293,3 +293,4 @@ dir.create(file.path("../results/", "/comunidad_33"))
 print(xtable(df_enrich, type = "latex"), file = "../results/comunidad_33/Tabla_Encriquecimiento_Funcional_parte1.tex") # Se guardara en el archivo especificado
 print(xtable(df_enrich2, type = "latex"), file = "../results/comunidad_33/Tabla_Encriquecimiento_Funcional_parte2.tex") # Se guardara en el archivo especificado
 print(xtable(df_enrich3, type = "latex"), file = "../results/comunidad_33/Tabla_Encriquecimiento_Funcional_parte3.tex") # Se guardara en el archivo especificado
+
