@@ -181,12 +181,12 @@ A continuación se realizara un enriquecimiento funcional con GO (Gene Ontology)
   \hline
  & ID & geneID \\ 
   \hline
-1 & GO:0035578 & GRN/MAPK1/MPO/TTR/PYCARD/FAF2/CCT8/FABP5/CCT2/RNASE3/PA2G4/RNASE2/TOLLIP/TUBB/TUBB4B/PRDX6/ANXA2/DYNC1H1/ARG1/VCP/CAP1/ACTR2/PRKCD/RNASET2/IST1/ELANE \\ 
-  2 & GO:0005766 & GRN/MAPK1/MPO/TTR/PYCARD/FAF2/CCT8/FABP5/CCT2/RNASE3/PA2G4/RNASE2/TOLLIP/PSEN1/TUBB/TUBB4B/PRDX6/ANXA2/DYNC1H1/ARG1/VCP/CAP1/ACTR2/PRKCD/RNASET2/IST1/ELANE \\ 
-  3 & GO:0042582 & GRN/MAPK1/MPO/TTR/PYCARD/FAF2/CCT8/FABP5/CCT2/RNASE3/PA2G4/RNASE2/TOLLIP/PSEN1/TUBB/TUBB4B/PRDX6/ANXA2/DYNC1H1/ARG1/VCP/CAP1/ACTR2/PRKCD/RNASET2/IST1/ELANE \\ 
-  4 & GO:0005775 & GRN/MAPK1/MPO/TTR/PYCARD/FAF2/CCT8/FABP5/CCT2/RNASE3/PA2G4/RNASE2/TOLLIP/TUBB/TUBB4B/PRDX6/ANXA2/DYNC1H1/ARG1/VCP/CAP1/ACTR2/PRKCD/RNASET2/IST1/ELANE \\ 
-  5 & GO:0034774 & GRN/MAPK1/MPO/TTR/PYCARD/FAF2/CCT8/FABP5/CCT2/RNASE3/PA2G4/RNASE2/TOLLIP/TUBB/TUBB4B/PRDX6/ANXA2/DYNC1H1/ARG1/VCP/CAP1/ACTR2/PRKCD/RNASET2/IST1/ELANE \\ 
-  6 & GO:0060205 & GRN/MAPK1/MPO/TTR/PYCARD/FAF2/CCT8/FABP5/CCT2/RNASE3/PA2G4/RNASE2/TOLLIP/TUBB/TUBB4B/PRDX6/ANXA2/DYNC1H1/ARG1/VCP/CAP1/ACTR2/PRKCD/RNASET2/IST1/ELANE \\ 
+1 & GO:0035578 & TUBB/TUBB4B/PRDX6/ANXA2/DYNC1H1/ARG1/VCP/CAP1/PRKCD/RNASET2/IST1/ELANE \\ 
+  2 & GO:0005766 & PSEN1/TUBB/TUBB4B/PRDX6/ANXA2/DYNC1H1/ARG1/VCP/CAP1/PRKCD/RNASET2/IST1/ELANE \\ 
+  3 & GO:0042582 & PSEN1/TUBB/TUBB4B/PRDX6/ANXA2/DYNC1H1/ARG1/VCP/CAP1/PRKCD/RNASET2/IST1/ELANE \\ 
+  4 & GO:0005775 & TUBB/TUBB4B/PRDX6/ANXA2/DYNC1H1/ARG1/VCP/CAP1/PRKCD/RNASET2/IST1/ELANE \\ 
+  5 & GO:0034774 & TUBB/TUBB4B/PRDX6/ANXA2/DYNC1H1/ARG1/VCP/CAP1/PRKCD/RNASET2/IST1/ELANE \\ 
+  6 & GO:0060205 & TUBB/TUBB4B/PRDX6/ANXA2/DYNC1H1/ARG1/VCP/CAP1/PRKCD/RNASET2/IST1/ELANE \\ 
    \hline
 \end{tabular}
 \end{table}
@@ -199,7 +199,53 @@ A continuación se realizara un enriquecimiento funcional con GO (Gene Ontology)
 
 \hfill
 
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlll}
+  \hline
+ & ID & Description & GeneRatio \\ 
+  \hline
+1 & GO:0035578 & azurophil granule lumen & 25/29 \\ 
+  2 & GO:0034774 & secretory granule lumen & 29/29 \\ 
+  3 & GO:0060205 & cytoplasmic vesicle lumen & 29/29 \\ 
+  4 & GO:0031983 & vesicle lumen & 29/29 \\ 
+  5 & GO:0005775 & vacuolar lumen & 26/29 \\ 
+  6 & GO:0005766 & primary lysosome & 25/29 \\ 
+   \hline
+\end{tabular}
+\end{table}
 
+\begin{table}[ht]
+\centering
+\begin{tabular}{rllrrr}
+  \hline
+ & ID & BgRatio & pvalue & p.adjust & Count \\ 
+  \hline
+1 & GO:0035578 & 91/19869 & 0.00 & 0.00 &  25 \\ 
+  2 & GO:0034774 & 322/19869 & 0.00 & 0.00 &  29 \\ 
+  3 & GO:0060205 & 325/19869 & 0.00 & 0.00 &  29 \\ 
+  4 & GO:0031983 & 327/19869 & 0.00 & 0.00 &  29 \\ 
+  5 & GO:0005775 & 176/19869 & 0.00 & 0.00 &  26 \\ 
+  6 & GO:0005766 & 155/19869 & 0.00 & 0.00 &  25 \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rll}
+  \hline
+ & ID & geneID \\ 
+  \hline
+1 & GO:0035578 & RETN/MPO/CTSC/PRTN3/TRAPPC1/TOLLIP/ANXA2/ARG1/S100A7/DPP7 \\ 
+  2 & GO:0034774 & CTSZ/RETN/MPO/CTSC/PRTN3/CTSD/CHI3L1/TRAPPC1/TOLLIP/SLPI/ANXA2/ARG1/S100A7/DPP7\\ 
+  3 & GO:0060205 & CTSZ/RETN/MPO/CTSC/PRTN3/CTSD/CHI3L1/TRAPPC1/TOLLIP/SLPI/ANXA2/ARG1/S100A7/DPP7\\ 
+  4 & GO:0031983 & CTSZ/RETN/MPO/CTSC/PRTN3/CTSD/CHI3L1/TRAPPC1/TOLLIP/SLPI/ANXA2/ARG1/S100A7/DPP7 \\ 
+  5 & GO:0005775 & RETN/MPO/CTSC/PRTN3/CTSD/TRAPPC1/TOLLIP/ANXA2/ARG1/S100A7/DPP7 \\ 
+  6 & GO:0005766 & RETN/MPO/CTSC/PRTN3/TRAPPC1/TOLLIP/ANXA2/ARG1/S100A7/DPP7\\ 
+   \hline
+\end{tabular}
+\end{table}
 
 \newpage
 
@@ -209,9 +255,52 @@ A continuación se realizara un enriquecimiento funcional con GO (Gene Ontology)
 
 \hfill
 
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlll}
+  \hline
+ & ID & Description & GeneRatio \\ 
+  \hline
+1 & GO:0043025 & neuronal cell body & 10/22 \\ 
+  2 & GO:0150034 & distal axon & 8/22 \\ 
+  3 & GO:0030426 & growth cone & 7/22 \\ 
+  4 & GO:0030427 & site of polarized growth & 7/22 \\ 
+  5 & GO:0045121 & membrane raft & 8/22 \\ 
+  6 & GO:0098857 & membrane microdomain & 8/22 \\ 
+   \hline
+\end{tabular}
+\end{table}
 
+\begin{table}[ht]
+\centering
+\begin{tabular}{rllrrr}
+  \hline
+ & ID & BgRatio & pvalue & p.adjust & Count \\ 
+  \hline
+1 & GO:0043025 & 497/19869 & 0.00 & 0.00 &  10 \\ 
+  2 & GO:0150034 & 278/19869 & 0.00 & 0.00 &   8 \\ 
+  3 & GO:0030426 & 167/19869 & 0.00 & 0.00 &   7 \\ 
+  4 & GO:0030427 & 173/19869 & 0.00 & 0.00 &   7 \\ 
+  5 & GO:0045121 & 326/19869 & 0.00 & 0.00 &   8 \\ 
+  6 & GO:0098857 & 327/19869 & 0.00 & 0.00 &   8 \\ 
+   \hline
+\end{tabular}
+\end{table}
 
-
-
+\begin{table}[ht]
+\centering
+\begin{tabular}{rll}
+  \hline
+ & ID & geneID \\ 
+  \hline
+1 & GO:0043025 & APOE/SOD1/APP/LRRK2/PSEN1/SNCA/MAPT/PSEN2/TNF/C9orf72 \\ 
+  2 & GO:0150034 & APP/LRRK2/PSEN1/SNCA/MAPT/PSEN2/PRNP/C9orf72 \\ 
+  3 & GO:0030426 & APP/LRRK2/PSEN1/SNCA/MAPT/PSEN2/C9orf72 \\ 
+  4 & GO:0030427 & APP/LRRK2/PSEN1/SNCA/MAPT/PSEN2/C9orf72 \\ 
+  5 & GO:0045121 & APP/LRRK2/PSEN1/MAPT/PSEN2/TREM2/PRNP/TNF \\ 
+  6 & GO:0098857 & APP/LRRK2/PSEN1/MAPT/PSEN2/TREM2/PRNP/TNF \\ 
+   \hline
+\end{tabular}
+\end{table}
 
 \textbf{}

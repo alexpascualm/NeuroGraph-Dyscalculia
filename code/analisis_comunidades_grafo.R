@@ -1,4 +1,4 @@
- .libPaths(paste0(Sys.getenv("R_LIBS_USER"),"/discalculia"))  # add to the path
+.libPaths(paste0(Sys.getenv("R_LIBS_USER"),"/discalculia"))  # add to the path
 
 suppressMessages(library(igraph))
 suppressMessages(library(STRINGdb))
@@ -7,16 +7,18 @@ suppressMessages(library(clusterProfiler))
 suppressMessages(library(org.Hs.eg.db))
 suppressMessages(library(xtable))
 suppressMessages(library(biomaRt))
-
+suppressMessages(library(this.path))
 
 ## Limpiar terminal de R ##
 cat("\014")
+
+## Configurar el directorio de trabajo
+setwd(substr(this.path(),1,130))
 
 ## Borrar variables de R ##
 rm(list=ls())
 
 nodes <- read.table("./string_node_degrees.tsv", sep = '\t',header = TRUE, as.is=T)
-
 
 links <- read.table("./string_interactions.tsv", sep = '\t',header = TRUE, as.is=T)
 

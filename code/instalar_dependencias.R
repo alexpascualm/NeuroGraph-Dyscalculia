@@ -28,3 +28,10 @@ if (!require("clusterProfiler", quietly = TRUE))
   BiocManager::install("clusterProfiler", lib = path_discalculia)
 
 
+if (!require("biomaRt", quietly = TRUE))
+  BiocManager::install("biomaRt", lib = path_discalculia)
+
+if (!require("this.path", quietly = TRUE))
+  BiocManager::install("this.path", lib = path_discalculia)
+
+
