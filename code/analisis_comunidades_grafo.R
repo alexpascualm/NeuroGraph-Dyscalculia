@@ -13,7 +13,7 @@ suppressMessages(library(this.path))
 cat("\014")
 
 ## Configurar el directorio de trabajo
-setwd(substr(this.path(),1,130))
+setwd(substr(this.path(),1,(nchar(this.path())-28)))
 
 ## Borrar variables de R ##
 rm(list=ls())
