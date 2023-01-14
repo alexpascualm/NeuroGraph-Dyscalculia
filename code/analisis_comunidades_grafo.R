@@ -1,4 +1,4 @@
-.libPaths(paste0(Sys.getenv("R_LIBS_USER"),"/discalculia"))  # add to the path
+ .libPaths(paste0(Sys.getenv("R_LIBS_USER"),"/discalculia"))  # add to the path
 
 suppressMessages(library(igraph))
 suppressMessages(library(STRINGdb))
@@ -6,6 +6,8 @@ suppressMessages(library(linkcomm))
 suppressMessages(library(clusterProfiler))
 suppressMessages(library(org.Hs.eg.db))
 suppressMessages(library(xtable))
+suppressMessages(library(biomaRt))
+
 
 ## Limpiar terminal de R ##
 cat("\014")
@@ -107,18 +109,42 @@ dev.off()
 ## Funcion para traducir a ENTREZID los genes de una comunidad dada ##
 
 ID_to_EntrezID <- function(Clustnumber){
-  Nodes <- getNodesIn(DC_lc,clusterids = c(Clustnumber))           # Obtenemos los genes de la comunidad seleccionada
-  Nodes<-gsub("9606.","",Nodes)                                                        # Procesamos su formato string
-  genes = bitr(Nodes, fromType="ENSEMBLPROT", toType="ENTREZID", OrgDb="org.Hs.eg.db") # Los pasamos a tipo ENTREZID
-  genes$ENTREZID=as.numeric(genes$ENTREZID)                                            # Pasamos estos ENTREZID a numérico
+  # Obtenemos los genes de la comunidad seleccionada
+  Nodes <- getNodesIn(DC_lc,clusterids = c(Clustnumber))   
+  
+  # Procesamos su formato string
+  Nodes<-gsub("9606.","",Nodes)                                                        
+  
+  # Especificamos el servidor y el conjunto de datos que desea utilizar de biomart
+  ensembl = useMart("ensembl", dataset = "hsapiens_gene_ensembl")
+  
+  # Ahora puede buscar los identificadores ENTREZID correspondientes a los identificadores ENSEMBLPROT especificados
+  genes <- getBM(attributes = c("ensembl_peptide_id", "entrezgene_id"), 
+                      filters = "ensembl_peptide_id", 
+                      values = Nodes, 
+                      mart = ensembl)
+ 
+  # Pasamos estos ENTREZID a numérico 
+  genes$entrezgene_id=as.numeric(genes$entrezgene_id)     
+  
   return(genes)
 }
 
 ### Analisis de nuestra comunidad de genes originales ###
 
 originales <- gsub("9606.","",nodes$identifier)
-originales <- bitr(originales, fromType="ENSEMBLPROT", toType="ENTREZID", OrgDb="org.Hs.eg.db") # Los pasamos a tipo ENTREZID
-originales <- as.numeric(originales$ENTREZID)
+
+# Especificamos el servidor y el conjunto de datos que desea utilizar de biomart
+ensembl = useMart("ensembl", dataset = "hsapiens_gene_ensembl")
+
+# Ahora puede buscar los identificadores ENTREZID correspondientes a los identificadores ENSEMBLPROT especificados
+originales <- getBM(attributes = c("ensembl_peptide_id", "entrezgene_id"), 
+                    filters = "ensembl_peptide_id", 
+                    values = originales, 
+                    mart = ensembl)
+
+#originales <- bitr(originales, fromType="ENSEMBLPROT", toType="ENTREZID", OrgDb="org.Hs.eg.db") # Los pasamos a tipo ENTREZID
+originales <- as.numeric(originales$entrezgene_id)
 ego <- enrichGO(gene          = originales,
                 OrgDb         = org.Hs.eg.db,
                 ont           = "CC",
@@ -129,9 +155,12 @@ ego <- enrichGO(gene          = originales,
 
 head(ego)
 
+#Nos quedamos solo con la cabecera para mostrarla en el documento
+ego <- head(ego)
+
 # A continuación se procede a guardar toda la tabla en un formato legible por latex
 
-df_enrich = as.data.frame(ego@result)
+df_enrich = as.data.frame(ego)
 
 df_enrich$qvalue = NULL
 rownames(df_enrich) = NULL
@@ -152,59 +181,11 @@ print(xtable(df_enrich, type = "latex"), file = "../results/comunidad_Original/T
 print(xtable(df_enrich2, type = "latex"), file = "../results/comunidad_Original/Tabla_Encriquecimiento_Funcional_parte2.tex") # Se guardara en el file especificado
 
 
-## Enriquecimiento funcional comunidad 64 ##
-
-Comm <- ID_to_EntrezID(1) # Id de la comunidad del cluster que se quiera estudiar
-
-ego <- enrichGO(gene          = Comm$ENTREZID,
-                OrgDb         = org.Hs.eg.db,
-                ont           = "CC",
-                pAdjustMethod = "BH",
-                pvalueCutoff  = 0.01,
-                qvalueCutoff  = 0.05,
-                readable      = TRUE)
-
-head(ego)
-
-# Guardamos las tablas en un formato legible por latex #
-
-df_enrich = as.data.frame(ego@result)
-
-df_enrich$qvalue = NULL
-rownames(df_enrich) = NULL
-
-df_enrich2 <- df_enrich
-df_enrich3 <- df_enrich
-
-df_enrich$BgRatio = NULL
-df_enrich$pvalue = NULL
-df_enrich$p.adjust = NULL
-df_enrich$geneID = NULL
-df_enrich$Count = NULL
-
-df_enrich2$Description = NULL
-df_enrich2$GeneRatio = NULL
-df_enrich2$geneID = NULL
-
-df_enrich3$Description = NULL
-df_enrich3$GeneRatio = NULL
-df_enrich3$BgRatio = NULL
-df_enrich3$pvalue = NULL
-df_enrich3$p.adjust = NULL
-df_enrich3$Count = NULL
-
-dir.create(file.path("../results/", "/comunidad_64"))
-print(xtable(df_enrich, type = "latex"), file = "../results/comunidad_64/Tabla_Encriquecimiento_Funcional_parte1.tex") # Se guardara en el archivo especificado
-print(xtable(df_enrich2, type = "latex"), file = "../results/comunidad_64/Tabla_Encriquecimiento_Funcional_parte2.tex") # Se guardara en el archivo especificado
-print(xtable(df_enrich3, type = "latex"), file = "../results/comunidad_64/Tabla_Encriquecimiento_Funcional_parte3.tex") # Se guardara en el archivo especificado
-
-
-
-## Enriquecimiento funcional comunidad 70 ##
+## Enriquecimiento funcional comunidad 70 (48 genes de 214) ##
 
 Comm <- ID_to_EntrezID(70) # Id de la comunidad del cluster que se quiera estudiar
 
-ego <- enrichGO(gene          = Comm$ENTREZID,
+ego <- enrichGO(gene          = Comm$entrezgene_id,
                 OrgDb         = org.Hs.eg.db,
                 ont           = "CC",
                 pAdjustMethod = "BH",
@@ -212,11 +193,15 @@ ego <- enrichGO(gene          = Comm$ENTREZID,
                 qvalueCutoff  = 0.05,
                 readable      = TRUE)
 
+
 head(ego)
+
+#Nos quedamos solo con la cabecera para mostrarla en el documento
+ego <- head(ego)
 
 # Guardamos las tablas en un formato legible por latex #
 
-df_enrich = as.data.frame(ego@result)
+df_enrich = as.data.frame(ego)
 
 df_enrich$qvalue = NULL
 rownames(df_enrich) = NULL
@@ -248,11 +233,11 @@ print(xtable(df_enrich3, type = "latex"), file = "../results/comunidad_70/Tabla_
 
 
 
-## Enriquecimiento funcional comunidad 33 ##
+## Enriquecimiento funcional comunidad 33 (30 genes de 214) ##
 
 Comm <- ID_to_EntrezID(33) # Id de la comunidad del cluster que se quiera estudiar
 
-ego <- enrichGO(gene          = Comm$ENTREZID,
+ego <- enrichGO(gene          = Comm$entrezgene_id,
                 OrgDb         = org.Hs.eg.db,
                 ont           = "CC",
                 pAdjustMethod = "BH",
@@ -262,9 +247,12 @@ ego <- enrichGO(gene          = Comm$ENTREZID,
 
 head(ego)
 
+#Nos quedamos solo con la cabecera para mostrarla en el documento
+ego <- head(ego)
+
 # Guardamos las tablas en un formato legible por latex #
 
-df_enrich = as.data.frame(ego@result)
+df_enrich = as.data.frame(ego)
 
 df_enrich$qvalue = NULL
 rownames(df_enrich) = NULL
@@ -293,4 +281,55 @@ dir.create(file.path("../results/", "/comunidad_33"))
 print(xtable(df_enrich, type = "latex"), file = "../results/comunidad_33/Tabla_Encriquecimiento_Funcional_parte1.tex") # Se guardara en el archivo especificado
 print(xtable(df_enrich2, type = "latex"), file = "../results/comunidad_33/Tabla_Encriquecimiento_Funcional_parte2.tex") # Se guardara en el archivo especificado
 print(xtable(df_enrich3, type = "latex"), file = "../results/comunidad_33/Tabla_Encriquecimiento_Funcional_parte3.tex") # Se guardara en el archivo especificado
+
+
+
+## Enriquecimiento funcional comunidad 48 (24 genes de 214) ##
+
+Comm <- ID_to_EntrezID(48) # Id de la comunidad del cluster que se quiera estudiar
+
+ego <- enrichGO(gene          = Comm$entrezgene_id,
+                OrgDb         = org.Hs.eg.db,
+                ont           = "CC",
+                pAdjustMethod = "BH",
+                pvalueCutoff  = 0.01,
+                qvalueCutoff  = 0.05,
+                readable      = TRUE)
+
+head(ego)
+
+#Nos quedamos solo con la cabecera para mostrarla en el documento
+ego <- head(ego)
+
+# Guardamos las tablas en un formato legible por latex #
+
+df_enrich = as.data.frame(ego)
+
+df_enrich$qvalue = NULL
+rownames(df_enrich) = NULL
+
+df_enrich2 <- df_enrich
+df_enrich3 <- df_enrich
+
+df_enrich$BgRatio = NULL
+df_enrich$pvalue = NULL
+df_enrich$p.adjust = NULL
+df_enrich$geneID = NULL
+df_enrich$Count = NULL
+
+df_enrich2$Description = NULL
+df_enrich2$GeneRatio = NULL
+df_enrich2$geneID = NULL
+
+df_enrich3$Description = NULL
+df_enrich3$GeneRatio = NULL
+df_enrich3$BgRatio = NULL
+df_enrich3$pvalue = NULL
+df_enrich3$p.adjust = NULL
+df_enrich3$Count = NULL
+
+dir.create(file.path("../results/", "/comunidad_48"))
+print(xtable(df_enrich, type = "latex"), file = "../results/comunidad_48/Tabla_Encriquecimiento_Funcional_parte1.tex") # Se guardara en el archivo especificado
+print(xtable(df_enrich2, type = "latex"), file = "../results/comunidad_48/Tabla_Encriquecimiento_Funcional_parte2.tex") # Se guardara en el archivo especificado
+print(xtable(df_enrich3, type = "latex"), file = "../results/comunidad_48/Tabla_Encriquecimiento_Funcional_parte3.tex") # Se guardara en el archivo especificado
 

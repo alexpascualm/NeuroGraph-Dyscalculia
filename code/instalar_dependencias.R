@@ -26,3 +26,5 @@ if (!require("org.Hs.eg.db", quietly = TRUE))
 
 if (!require("clusterProfiler", quietly = TRUE))
   BiocManager::install("clusterProfiler", lib = path_discalculia)
+
+
