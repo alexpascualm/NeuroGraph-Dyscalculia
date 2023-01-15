@@ -10,13 +10,13 @@ Se explicaran ahora los resultados que hemos obtenido usando todos los recursos 
 
 Tras realizar una búsqueda del fenotipo a investigar, \textit{Dyscalculia}, vemos que se encuentra clasificado como \href{https://hpo.jax.org/app/browse/term/HP:0002442}{HP:0002442} con un total de 13 fenotipos de otras enfermedades asociadas y un total de 24 genes asociados a esta en HPO.
 
-Descargamos un .csv para cargar el listado de genes con sus links en String
+Descargamos el archivo \textit{.csv} con nuestro listado de genes, para su posterior carga en String
 
 \subsection{String}
 
 \hfill
 
-Gracias a las anotaciones en HPO obtenidas del .csv mencionado anteriormente, podemos obtener los genes asociados del fenotipo, y con ello procedemos a la búsqueda de más información acerca de estos utilizando \href{https://string-db.org}{STRING}, una base de datos biológica y un recurso web de interacciones entre proteínas. El resultado lo podemos ver en la figura \ref{fig:string1}
+Gracias a las anotaciones en HPO obtenidas, procedemos a la búsqueda de más información acerca de estos, utilizando \href{https://string-db.org}{STRING}. El resultado lo podemos ver en la figura \ref{fig:string1}.
 
 \begin{figure}[h]
 	\centering
@@ -25,23 +25,27 @@ Gracias a las anotaciones en HPO obtenidas del .csv mencionado anteriormente, po
 	\label{fig:string1}
 \end{figure}
 
-Una vez cargados los genes y sus relaciones en string, procedemos a descargar los ficheros "string-node-degree.tsv" e "string-interactions.tsv".
+Una vez cargados los genes y sus relaciones en string, procedemos a descargar los ficheros \textit{string-node-degree.tsv} e \textit{string-interactions.tsv}.
 
-Se creara también un objeto network de la librería de R stringdb, con las siguientes caracteristicas:
+\hfill
 
-Versión=11
-Specie=9606
+Se creara también un objeto network, de la librería de R \textit{stringdb}, con las siguientes características:
+
+\hfill
+
+Versión=11; 
+Specie=9606; 
 Score threshold=400
 
 \hfill
 
-Se usara esta network de genes humanos, para buscar genes vecinos de los 24 que teníamos en un principio y realizar una propagación de red con el fin de aumentar el total de genes a estudiar que guarden directa o indirectamente una relación con nuestro fenotipo a estudiar.
+Se usará esta red de genes humanos para buscar genes vecinos de los 24 que teníamos en un principio y realizar una propagación de red con el fin de aumentar el total de genes a estudiar que guarden directa o indirectamente una relación con nuestro fenotipo a estudiar.
 
 \hfill
 
 Gracias a este método el total de genes de estudio ha ascendido a 214, con esto podemos pasar al estudio de sus relaciones y funciones con una carga de trabajo mas adecuada.
 
-Finalmente se usara String para la documentación que estudiaremos antes de sacar conclusiones, puesta herramienta nos sugiere papers científicos de gran relación con la red de genes que se le de como entrada
+Además de esto, también hemos usado String para la obtención de información adicional relacionada con la red de genes obtenida.
 
 \subsection{igraph}
 
@@ -55,7 +59,7 @@ Se realizan a continuación los correspondientes pasos para clusterizar nuestro 
 
 \subsubsection{LinkComm}
 
-Tras una serie de pruebas con distintas funciones de igraph para hacer comunidades, se ha decidido usar la anteriormente citada LinkComm (con hcmethod="single", ya que cambiando este parametro a otros modos como "ward, obteniamos comunidades mucho menos relevantes), que nos deja la figura \ref{fig:LinkComm1} como muestra de su trabajo sobre nuestra red de genes, este dendograma y esta gráfica que relaciona la altura con la densidad de partición :
+Tras una serie de pruebas con distintas funciones de igraph para hacer comunidades, se ha decidido usar la anteriormente citada LinkComm (con hcmethod=“single”, ya que cambiando este parametro a otros modos como “ward”, obteniamos comunidades mucho menos relevantes), que nos deja la figura \ref{fig:LinkComm1} como muestra de su trabajo sobre nuestra red de genes.
 
 \begin{figure}[h]
 	\centering
@@ -68,7 +72,7 @@ Tras una serie de pruebas con distintas funciones de igraph para hacer comunidad
 
 \hfill
 
-Se han obtenido un total de 71 comunidades, cada una con una cantidad de los 214 nodos originales diferente. Observamos un gráfico en la figura \ref{fig:LinkComm2} en la que aparece un gráfico de barras con la cantidad de nodos que tienen esas comunidades:
+Se han obtenido un total de 71 comunidades, cada una con una cantidad de los 214 nodos originales diferente. Observamos la figura \ref{fig:LinkComm2} en la que aparece un gráfico de barras con la cantidad de nodos que tienen esas comunidades.
 
 \begin{figure}[h]
 	\centering
@@ -78,7 +82,7 @@ Se han obtenido un total de 71 comunidades, cada una con una cantidad de los 214
 \end{figure}
 
 
-Además podemos observar la figura \ref{fig:LinkComm3} en la que, por colores, se nos muestra la pertenencia de cada nodo de la red a la una comunidad u otra:
+Además podemos observar la figura \ref{fig:LinkComm3} en la que, por colores, se nos muestra la pertenencia de cada nodo de la red a cada una de las comunidades.
 
 \begin{figure}[h]
 	\centering
@@ -94,6 +98,8 @@ Además podemos observar la figura \ref{fig:LinkComm3} en la que, por colores, s
 \hfill
 
 A continuación, se realizara un enriquecimiento funcional con GO (Gene Ontology) para observar las funciones implicadas en la formación de las distintas componentes celulares de las comunidades que hemos obtenido con LinkComm, con un numero de genes que suponga entre un 10/100 y un 20/100 del total de la red propagada que obtuvimos en los anteriores apartados.
+
+\hfill
 
 Se realizara, además, el análisis sobre la comunidad de genes originales para ver las componentes celulares relacionadas con nuestro conjunto de genes directamente vinculados a nuestro fenotipo discalculia.
 
