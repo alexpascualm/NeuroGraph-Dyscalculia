@@ -24,7 +24,7 @@ links <- read.table("./string_interactions.tsv", sep = '\t',header = TRUE, as.is
 string_db <- STRINGdb$new( version="11", species=9606, score_threshold=400, input_directory="" )
 string.network <- string_db$get_graph()
 
-hits <- nodes$X9606.ENSP00000442954 #Nos quedamos con los String_ID de nuestro conjunto de genes
+hits <- nodes$identifier #Nos quedamos con los String_ID de nuestro conjunto de genes
 hits.network <- string_db$get_subnetwork(hits) #Creamos una network usando StringDb
 
 first.neigh <- (neighbors(graph = string.network, v = V(hits.network)$name, mode = "all"))$name #Encontrams una serie de nodos vecinos
