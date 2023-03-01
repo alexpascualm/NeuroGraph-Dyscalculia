@@ -5,7 +5,7 @@ A traves de sistemas de genes(formando pathways o rutas) y relacionandolo con el
 
 Para obtener las figuras y tablas correspondientes en la carpeta resultados, ejecute los ficheros:
 
-* setup.sh: Para instalar dependecnais en un path autogenerado
+* setup.sh: Para instalar dependencias en un path autogenerado
 * launch.sh: Para ejecutar los scripts de R correspodientes a la obtencion de dichos resultados 
 
 
