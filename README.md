@@ -34,6 +34,14 @@ Este proyecto tiene como objetivo identificar y analizar genes relacionados con 
 5. **Interpretación biológica**: análisis de las conexiones genéticas con procesos neurológicos clave.
 
 ---
+## ⚙️ Ejecución
+
+Para obtener las figuras y tablas correspondientes en la carpeta resultados, ejecute los ficheros:
+
+setup.sh: Para instalar dependencias en un path autogenerado
+launch.sh: Para ejecutar los scripts de R correspodientes a la obtencion de dichos resultados
+
+---
 
 ## Participantes: 
 * David Ramírez Arco (Archerd6)
